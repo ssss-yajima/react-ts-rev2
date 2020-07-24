@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { BrowserRouter } from 'react-router-dom';
 import createSagaMiddleware from 'redux-saga';
 
@@ -14,7 +14,19 @@ import taskListReducer from './reducers/taskList';
 
 // const sagaMiddleWare = createSagaMiddleware();
 // const store = createStore(reducer, applyMiddleware(sagaMiddleWare));
-const store = createStore(taskListReducer);
+
+interface ExtendedWindow extends Window {
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+}
+declare var window: ExtendedWindow;
+const composeReduxDevToolsEnhancers =
+  (typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+
+const store = createStore(
+  taskListReducer,
+  composeReduxDevToolsEnhancers(applyMiddleware()),
+);
 
 ReactDOM.render(
   <Provider store={store}>

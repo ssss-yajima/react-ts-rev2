@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Helmet } from 'react-helmet';
 import { Redirect, Route, Switch } from 'react-router';
 
-import TaskList from './components/TaskList';
+import TaskList from './containers/TaskList';
 // import Detail from './containers/Detail';
 
 // import './App.css';

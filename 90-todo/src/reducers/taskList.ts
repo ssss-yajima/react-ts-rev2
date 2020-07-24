@@ -1,5 +1,5 @@
-import { Task } from '../services/task';
 import { Reducer } from 'redux';
+import { Task } from '../services/task';
 import { TaskListAction, ADD } from '../actions/taskList';
 
 export interface TaskListState {
@@ -11,9 +11,10 @@ export const initialState: TaskListState = { tasks: [] };
 function addTask(tasks: Task[], title: string): Task[] {
   const task = {
     id: 100, // FIXME
-    title: title,
+    title,
     is_done: false,
   };
+
   return [...tasks, task];
 }
 
