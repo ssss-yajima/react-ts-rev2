@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Task } from '../services/task';
-import TaskItem from './TaskItem';
+import TaskItem from '../containers/TaskItem';
 
 export interface TaskListProps {
   tasks?: Task[];

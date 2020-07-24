@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import TaskList from '../components/TaskList';
 import { TaskListState } from '../reducers/taskList';
 import { Task } from '../services/task';
-import { add } from '../actions/taskList';
+import { add, remove } from '../actions/taskList';
 
 interface StateProps {
   tasks: Task[];
