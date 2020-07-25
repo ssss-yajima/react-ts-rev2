@@ -1,6 +1,10 @@
 import React, { FC, useState } from 'react';
-import { Task } from '../services/task';
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
 import TaskItem from './TaskItem';
+import { Task } from '../services/task';
 
 export interface TaskListProps {
   tasks?: Task[];
@@ -25,27 +29,42 @@ const TaskList: FC<TaskListProps> = ({
   remove = () => undefined,
   toggle = () => undefined,
 }) => {
-  const [title, set] = useTitle();
+  const [title, setTitle] = useTitle();
+  const [selectedId, setSelectedId] = useState('');
   const onClickAdd = () => {
     add(title);
-    set('');
+    setTitle('');
   };
 
   return (
     <>
       <div className="TaskList">
-        {tasks.map(task => (
-          <TaskItem
-            task={task}
-            key={task.id}
-            onClickToggle={() => toggle(task)}
-            onClickRemove={() => remove(task)}
-          />
-        ))}
+        <List component="nav" aria-label="taskList">
+          {tasks.map(task => (
+            <TaskItem
+              task={task}
+              key={task.id}
+              onClickToggle={() => toggle(task)}
+              onClickRemove={() => remove(task)}
+              onClick={() => setSelectedId(task.id)}
+              selected={task.id === selectedId}
+            />
+          ))}
+        </List>
       </div>
       <div className="NewTaskForm">
-        <input type="text" value={title} onChange={e => set(e.target.value)} />
-        <input type="button" value="Add" onClick={onClickAdd} />
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          size="small"
+          label="タスク名を入力..."
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+
+        <Button variant="contained" onClick={onClickAdd} disabled={!title}>
+          Add
+        </Button>
       </div>
     </>
   );

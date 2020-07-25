@@ -9,7 +9,7 @@ export const initialState: TaskListState = { tasks: [] };
 
 // タスクを追加
 const taskOf = (title: string) => ({
-  id: new Date().getTime(), // FIXME
+  id: new Date().getTime().toString(), // FIXME
   title,
   isDone: false,
 });
