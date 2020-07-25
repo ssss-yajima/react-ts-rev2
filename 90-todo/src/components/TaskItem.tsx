@@ -3,25 +3,23 @@ import { Task } from '../services/task';
 
 export interface TaskProps {
   task: Task;
-  onToggle: (taskId: number) => void;
-  // toggle?: (taskId: number) => void;
-  remove?: (task: Task) => void;
+  onClickToggle: (task: Task) => void;
+  onClickRemove?: (task: Task) => void;
 }
 
 const TaskItem: FC<TaskProps> = ({
   task,
-  onToggle = () => undefined,
-  // toggle = () => undefined,
-  remove = () => undefined,
+  onClickToggle = () => undefined,
+  onClickRemove = () => undefined,
 }) => {
   return (
     <div>
-      <button type="button" onClick={() => onToggle(task.id)}>
+      <button type="button" onClick={() => onClickToggle(task)}>
         Done
       </button>
-      {task.isDone ? ' ' : 'X'}
+      {task.isDone ? '■' : '□'}
       {task.title}
-      <button type="button" onClick={() => remove(task)}>
+      <button type="button" onClick={() => onClickRemove(task)}>
         Remove
       </button>
     </div>

@@ -13,9 +13,9 @@ export const remove = (task: Task) => ({
   type: REMOVE as typeof REMOVE,
   payload: { task },
 });
-export const toggle = (taskId: number) => ({
+export const toggle = (task: Task) => ({
   type: TOGGLE as typeof TOGGLE,
-  payload: { taskId },
+  payload: { task },
 });
 
 export type TaskListAction =

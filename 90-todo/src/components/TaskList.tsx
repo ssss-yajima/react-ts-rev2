@@ -1,13 +1,15 @@
 import React, { FC, useState } from 'react';
 import { Task } from '../services/task';
-import TaskItem from '../containers/TaskItem';
+import TaskItem from './TaskItem';
 
 export interface TaskListProps {
   tasks?: Task[];
   add?: (title: string) => void;
-  toggle?: (taskId: number) => void;
+  remove?: (task: Task) => void;
+  toggle?: (task: Task) => void;
 }
 
+// 新規タスクTextBox
 const useTitle = (): [string, (input: string) => void] => {
   const [title, setTitle] = useState('');
   const set = (input: string) => {
@@ -20,6 +22,7 @@ const useTitle = (): [string, (input: string) => void] => {
 const TaskList: FC<TaskListProps> = ({
   tasks = [],
   add = () => undefined,
+  remove = () => undefined,
   toggle = () => undefined,
 }) => {
   const [title, set] = useTitle();
@@ -35,7 +38,8 @@ const TaskList: FC<TaskListProps> = ({
           <TaskItem
             task={task}
             key={task.id}
-            onToggle={() => toggle(task.id)}
+            onClickToggle={() => toggle(task)}
+            onClickRemove={() => remove(task)}
           />
         ))}
       </div>

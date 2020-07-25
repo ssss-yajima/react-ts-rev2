@@ -17,12 +17,14 @@ const taskOf = (title: string) => ({
 // 選択されたタスクを削除
 const remove = (tasks: Task[], task: Task): Task[] =>
   tasks.filter(x => x !== task);
-// 選択されたタスクの完了状態を反転
-function toggle(task: Task): Task {
-  const toggledTask = task;
-  toggledTask.isDone = !task.isDone;
 
-  return toggledTask;
+// 選択されたタスクの完了状態を反転
+function toggle(tasks: Task[], task: Task): Task[] {
+  const toggledTask = task;
+  toggledTask.isDone = !toggledTask.isDone;
+  const newTasks = tasks.map(x => (x.id === task.id ? toggledTask : x));
+
+  return newTasks;
 }
 
 const taskListReducer: Reducer<TaskListState, TaskListAction> = (
@@ -43,9 +45,7 @@ const taskListReducer: Reducer<TaskListState, TaskListAction> = (
     case TOGGLE:
       return {
         ...state,
-        tasks: state.tasks.map(x =>
-          x.id === action.payload.taskId ? toggle(x) : x,
-        ),
+        tasks: toggle(state.tasks, action.payload.task),
       };
     default: {
       // const _: never = action;
