@@ -1,25 +1,28 @@
 import { Reducer } from 'redux';
 import { Task } from '../services/task';
-import { TaskListAction, ADD, REMOVE } from '../actions/taskList';
+import { TaskListAction, ADD, REMOVE, TOGGLE } from '../actions/taskList';
 
 export interface TaskListState {
   tasks: Task[];
 }
-
 export const initialState: TaskListState = { tasks: [] };
 
-//タスクを追加
-function addTask(tasks: Task[], title: string): Task[] {
-  const task = {
-    id: 100, // FIXME
-    title,
-    is_done: false,
-  };
-  return [...tasks, task];
-}
-//選択されたタスクを削除
-function removeTask(tasks: Task[], task: Task): Task[] {
-  return tasks.filter(x => x !== task);
+// タスクを追加
+const taskOf = (title: string) => ({
+  id: new Date().getTime(), // FIXME
+  title,
+  isDone: false,
+});
+
+// 選択されたタスクを削除
+const remove = (tasks: Task[], task: Task): Task[] =>
+  tasks.filter(x => x !== task);
+// 選択されたタスクの完了状態を反転
+function toggle(task: Task): Task {
+  const toggledTask = task;
+  toggledTask.isDone = !task.isDone;
+
+  return toggledTask;
 }
 
 const taskListReducer: Reducer<TaskListState, TaskListAction> = (
@@ -30,12 +33,19 @@ const taskListReducer: Reducer<TaskListState, TaskListAction> = (
     case ADD:
       return {
         ...state,
-        tasks: addTask(state.tasks, action.payload.title),
+        tasks: [...state.tasks, taskOf(action.payload.title)],
       };
     case REMOVE:
       return {
         ...state,
-        tasks: removeTask(state.tasks, action.payload.task),
+        tasks: remove(state.tasks, action.payload.task),
+      };
+    case TOGGLE:
+      return {
+        ...state,
+        tasks: state.tasks.map(x =>
+          x.id === action.payload.taskId ? toggle(x) : x,
+        ),
       };
     default: {
       // const _: never = action;

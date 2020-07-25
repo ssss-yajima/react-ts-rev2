@@ -3,20 +3,25 @@ import { Task } from '../services/task';
 
 export interface TaskProps {
   task: Task;
-  finish?: () => void;
+  toggle?: (taskId: number) => void;
   remove?: (task: Task) => void;
 }
 
 const TaskItem: FC<TaskProps> = ({
   task,
-  finish = () => undefined,
-  remove = (task: Task) => undefined,
+  toggle = () => undefined,
+  remove = () => undefined,
 }) => {
   return (
-    <div className="TaskItem">
-      {/* <button onClick={finish}>Done</button> */}
+    <div>
+      <button type="button" onClick={() => toggle(task.id)}>
+        Done
+      </button>
+      {task.isDone ? ' ' : 'X'}
       {task.title}
-      <input type="button" value="Remove" onClick={() => remove(task)} />
+      <button type="button" onClick={() => remove(task)}>
+        Remove
+      </button>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const TaskList: FC<TaskListProps> = ({ tasks = [], add = () => undefined }) => {
     <>
       <div className="TaskList">
         {tasks.map(task => (
-          <TaskItem task={task} />
+          <TaskItem task={task} key={task.id} />
         ))}
       </div>
       <div className="NewTaskForm">

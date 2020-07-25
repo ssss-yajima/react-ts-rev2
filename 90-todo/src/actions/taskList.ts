@@ -2,6 +2,7 @@ import { Task } from '../services/task';
 
 export const ADD = 'TASKLIST/ADD';
 export const REMOVE = 'TASKLIST/REMOVE';
+export const TOGGLE = 'TASKLIST/TOGGLE';
 
 export const add = (title: string) => ({
   type: ADD as typeof ADD,
@@ -12,5 +13,12 @@ export const remove = (task: Task) => ({
   type: REMOVE as typeof REMOVE,
   payload: { task },
 });
+export const toggle = (taskId: number) => ({
+  type: TOGGLE as typeof TOGGLE,
+  payload: { taskId },
+});
 
-export type TaskListAction = ReturnType<typeof add> | ReturnType<typeof remove>;
+export type TaskListAction =
+  | ReturnType<typeof add>
+  | ReturnType<typeof remove>
+  | ReturnType<typeof toggle>;

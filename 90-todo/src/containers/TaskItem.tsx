@@ -3,15 +3,17 @@ import { Dispatch } from 'redux';
 
 import { Task } from '../services/task';
 import TaskItem from '../components/TaskItem';
-import { remove } from '../actions/taskList';
+import { remove, toggle } from '../actions/taskList';
 
 interface DispatchProps {
+  toggle: (taskId: number) => void;
   remove: (task: Task) => void;
 }
 
-const mapStateToProps = () => {};
+const mapStateToProps = undefined;
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  toggle: taskId => dispatch(toggle(taskId)),
   remove: task => dispatch(remove(task)),
 });
 
