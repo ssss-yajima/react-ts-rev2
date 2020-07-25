@@ -5,6 +5,7 @@ import TaskItem from '../containers/TaskItem';
 export interface TaskListProps {
   tasks?: Task[];
   add?: (title: string) => void;
+  toggle?: (taskId: number) => void;
 }
 
 const useTitle = (): [string, (input: string) => void] => {
@@ -16,7 +17,11 @@ const useTitle = (): [string, (input: string) => void] => {
   return [title, set];
 };
 
-const TaskList: FC<TaskListProps> = ({ tasks = [], add = () => undefined }) => {
+const TaskList: FC<TaskListProps> = ({
+  tasks = [],
+  add = () => undefined,
+  toggle = () => undefined,
+}) => {
   const [title, set] = useTitle();
   const onClickAdd = () => {
     add(title);
@@ -27,7 +32,11 @@ const TaskList: FC<TaskListProps> = ({ tasks = [], add = () => undefined }) => {
     <>
       <div className="TaskList">
         {tasks.map(task => (
-          <TaskItem task={task} key={task.id} />
+          <TaskItem
+            task={task}
+            key={task.id}
+            onToggle={() => toggle(task.id)}
+          />
         ))}
       </div>
       <div className="NewTaskForm">
