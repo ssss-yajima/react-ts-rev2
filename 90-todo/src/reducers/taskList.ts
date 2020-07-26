@@ -7,13 +7,6 @@ export interface TaskListState {
 }
 export const initialState: TaskListState = { tasks: [] };
 
-// タスクを追加
-const taskOf = (title: string) => ({
-  id: new Date().getTime().toString(), // FIXME
-  title,
-  isDone: false,
-});
-
 // 選択されたタスクを削除
 const remove = (tasks: Task[], task: Task): Task[] =>
   tasks.filter(x => x !== task);
@@ -35,7 +28,7 @@ const taskListReducer: Reducer<TaskListState, TaskListAction> = (
     case ADD:
       return {
         ...state,
-        tasks: [...state.tasks, taskOf(action.payload.title)],
+        tasks: [...state.tasks, action.payload.task],
       };
     case REMOVE:
       return {

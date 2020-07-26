@@ -8,7 +8,7 @@ import { Task } from '../services/task';
 
 export interface TaskListProps {
   tasks?: Task[];
-  add?: (title: string) => void;
+  add?: (task: Task) => void;
   remove?: (task: Task) => void;
   toggle?: (task: Task) => void;
 }
@@ -32,7 +32,13 @@ const TaskList: FC<TaskListProps> = ({
   const [title, setTitle] = useTitle();
   const [selectedId, setSelectedId] = useState('');
   const onClickAdd = () => {
-    add(title);
+    // タスクを追加
+    const newTask: Task = {
+      id: new Date().getTime().toString(), // FIXME
+      title,
+      isDone: false,
+    };
+    add(newTask);
     setTitle('');
   };
 

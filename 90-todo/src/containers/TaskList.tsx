@@ -11,7 +11,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  add: (title: string) => void;
+  add: (task: Task) => void;
   remove: (task: Task) => void;
   toggle: (task: Task) => void;
 }

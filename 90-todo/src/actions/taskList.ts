@@ -4,9 +4,9 @@ export const ADD = 'TASKLIST/ADD';
 export const REMOVE = 'TASKLIST/REMOVE';
 export const TOGGLE = 'TASKLIST/TOGGLE';
 
-export const add = (title: string) => ({
+export const add = (task: Task) => ({
   type: ADD as typeof ADD,
-  payload: { title },
+  payload: { task },
 });
 
 export const remove = (task: Task) => ({
