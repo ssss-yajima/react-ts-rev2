@@ -1,0 +1,19 @@
+{
+  "get_tasks": [
+    {
+      "id": "0001",
+      "title": "Sample Task 1",
+      "isDone": false
+    },
+    {
+      "id": "0002",
+      "title": "Sample Task 2",
+      "isDone": false
+    },
+    {
+      "id": "0003",
+      "title": "Sample Task 3",
+      "isDone": false
+    }
+  ]
+}
