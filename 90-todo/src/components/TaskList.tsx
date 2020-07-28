@@ -1,46 +1,47 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import TaskItem from './TaskItem';
 import { Task } from '../services/task';
+import { fetchTasks } from '../services/api';
 
 export interface TaskListProps {
   tasks?: Task[];
   add?: (task: Task) => void;
+  set?: (tasks: Task[]) => void;
   remove?: (task: Task) => void;
   toggle?: (task: Task) => void;
 }
 
-// 新規タスクTextBox
-const useTitle = (): [string, (input: string) => void] => {
-  const [title, setTitle] = useState('');
-  const set = (input: string) => {
-    setTitle(input);
-  };
-
-  return [title, set];
-};
-
 const TaskList: FC<TaskListProps> = ({
   tasks = [],
   add = () => undefined,
+  set = () => undefined,
   remove = () => undefined,
   toggle = () => undefined,
 }) => {
-  const [title, setTitle] = useTitle();
+  // State
+  const [title, setTitle] = useState('');
   const [selectedId, setSelectedId] = useState('');
+
+  // Add a new task
   const onClickAdd = () => {
-    // タスクを追加
     const newTask: Task = {
       id: new Date().getTime().toString(), // FIXME
       title,
       isDone: false,
     };
     add(newTask);
-    setTitle('');
+    setTitle(''); // Clear input box
   };
+
+  // Lifecycle
+  useEffect(() => {
+    // Fetch tasks from API on mount
+    fetchTasks().then(fetchedTasks => set(fetchedTasks));
+  }, [set]);
 
   return (
     <>

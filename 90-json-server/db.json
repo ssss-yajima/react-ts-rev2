@@ -1,5 +1,5 @@
 {
-  "get_tasks": [
+  "tasks": [
     {
       "id": "0001",
       "title": "Sample Task 1",

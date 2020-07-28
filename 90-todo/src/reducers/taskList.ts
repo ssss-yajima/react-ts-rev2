@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { Task } from '../services/task';
-import { TaskListAction, ADD, REMOVE, TOGGLE } from '../actions/taskList';
+import { TaskListAction, ADD, REMOVE, TOGGLE, SET } from '../actions/taskList';
 
 export interface TaskListState {
   tasks: Task[];
@@ -29,6 +29,11 @@ const taskListReducer: Reducer<TaskListState, TaskListAction> = (
       return {
         ...state,
         tasks: [...state.tasks, action.payload.task],
+      };
+    case SET:
+      return {
+        ...state,
+        tasks: action.payload.tasks,
       };
     case REMOVE:
       return {
