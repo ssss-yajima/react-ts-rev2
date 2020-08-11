@@ -3,6 +3,7 @@ import React, { FC, useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
+import { Container, Grid } from '@material-ui/core';
 import TaskItem from './TaskItem';
 import { Task } from '../services/task';
 import { fetchTasks } from '../services/api';
@@ -59,19 +60,33 @@ const TaskList: FC<TaskListProps> = ({
           ))}
         </List>
       </div>
-      <div className="NewTaskForm">
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          size="small"
-          label="タスク名を入力..."
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        />
-
-        <Button variant="contained" onClick={onClickAdd} disabled={!title}>
-          Add
-        </Button>
+      <div
+        className="NewTaskForm"
+        style={{ paddingLeft: 10, paddingRight: 10 }}
+      >
+        <Grid container spacing={1}>
+          <Grid item sm={10}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              size="small"
+              fullWidth
+              label="タスク名を入力..."
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+            />
+          </Grid>
+          <Grid item sm={2}>
+            <Button
+              variant="contained"
+              onClick={onClickAdd}
+              fullWidth
+              disabled={!title}
+            >
+              Add
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     </>
   );

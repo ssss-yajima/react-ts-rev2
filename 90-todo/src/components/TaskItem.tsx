@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Grid } from '@material-ui/core';
 import { Task } from '../services/task';
 
 export interface TaskProps {
