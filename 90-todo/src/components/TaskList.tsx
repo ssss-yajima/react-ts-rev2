@@ -41,7 +41,7 @@ const TaskList: FC<TaskListProps> = ({
   // Lifecycle
   useEffect(() => {
     // Fetch tasks from API on mount
-    fetchTasks().then(fetchedTasks => set(fetchedTasks));
+    // fetchTasks().then(fetchedTasks => set(fetchedTasks));
   }, [set]);
 
   return (
