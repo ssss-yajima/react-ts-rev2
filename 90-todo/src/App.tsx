@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import TaskList from './containers/TaskList';
+import Timer from './containers/Timer';
 
 const title = 'ToDo List';
 
@@ -23,7 +24,7 @@ const App: FC = () => (
     <Paper>
       <Switch>
         <Route path="/" exact component={TaskList} />
-        {/* <Route path="/:taskId/detail" component={Detail} /> */}
+        <Route path="/timer" component={Timer} />
         <Redirect to="/" />
       </Switch>
     </Paper>
